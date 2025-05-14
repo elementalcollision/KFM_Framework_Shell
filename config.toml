@@ -1,0 +1,47 @@
+# config.toml - Agent Shell Configuration
+
+[general]
+# Default LLM provider to use. Examples: "openai", "anthropic", "groq"
+current_provider = "openai"
+
+[providers.openai]
+model = "gpt-4o"
+# api_key = "your_openai_api_key_here" # Better to use .env for API keys
+
+[providers.anthropic]
+model = "claude-3-opus-20240229"
+# api_key = "your_anthropic_api_key_here"
+
+[providers.groq]
+model = "mixtral-8x7b-32768"
+# api_key = "your_groq_api_key_here"
+
+[logging]
+level = "INFO" # e.g., DEBUG, INFO, WARNING, ERROR
+
+[memory.cache.redis]
+# host = "localhost"
+# port = 6379
+# ttl_seconds = 3600
+
+# Personality pack settings can be added here later
+[personalities]
+directory = "personalities"
+default_personality_id = "default"
+
+# NEW Memory Configuration
+[memory]
+redis_enabled = true
+vector_store_enabled = true # Enable LanceDB
+default_embedding_provider_id = "openai"
+
+# LanceDB specific config (Optional - uses defaults if omitted)
+[memory.lancedb]
+uri = "./data/lancedb_store"
+table_name = "agent_memory"
+embedding_function_name = "openai"
+embedding_model_name = "text-embedding-ada-002"
+
+# NEW Redis Configuration (Optional - defaults to localhost if omitted)
+[redis]
+url = "redis://localhost:6379/0"
